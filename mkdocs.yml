@@ -1,0 +1,27 @@
+site_name: 信息学竞赛模型一本通
+site_author: Your Name
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs # 开启顶部导航栏
+    - navigation.top  # 开启回到顶部按钮
+  palette:
+    scheme: default
+    primary: indigo
+    accent: indigo
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.arithmatex: # 开启 LaTeX 数学公式支持
+      generic: true
+
+nav:
+  - 首页: index.md
+  - 基础图论:
+    - 最短路模型: graph/shortest_path.md
