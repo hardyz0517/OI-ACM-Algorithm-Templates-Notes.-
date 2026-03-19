@@ -1,4 +1,4 @@
-site_name: 信息学竞赛模型一本通
+site_name: 信息学竞赛笔记
 site_author: Your Name
 
 theme:
@@ -21,7 +21,9 @@ markdown_extensions:
   - pymdownx.arithmatex: # 开启 LaTeX 数学公式支持
       generic: true
 
+# Contents
 nav:
   - 首页: index.md
   - 基础图论:
-    - 最短路模型: graph/shortest_path.md
+    - 欧拉路径: graph/eulerian_path.md
+    - 网络流: graph/network_flow.md
