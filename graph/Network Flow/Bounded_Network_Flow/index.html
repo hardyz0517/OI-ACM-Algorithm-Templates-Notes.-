@@ -1,0 +1,1268 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Your Name">
+      
+      
+      
+        <link rel="prev" href="../../%E5%9F%BA%E7%8E%AF%E6%A0%91/">
+      
+      
+        <link rel="next" href="../Maximum_Flow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>上下界网络流 - 信息学竞赛笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="信息学竞赛笔记" class="md-header__button md-logo" aria-label="信息学竞赛笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            信息学竞赛笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              上下界网络流
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../Tarjan/" class="md-tabs__link">
+          
+  
+  
+  Graph
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="信息学竞赛笔记" class="md-nav__button md-logo" aria-label="信息学竞赛笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    信息学竞赛笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    简介
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graph
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Tarjan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tarjan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9F%BA%E7%8E%AF%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    基环树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Flow
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Network Flow
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    上下界网络流
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    上下界网络流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基础概念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、 无源汇有上下界可行流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、 有源汇有上下界最大流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、 有源汇有上下界最小流
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Maximum_Flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最大流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Minimum_Cut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    最小割
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基础概念
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一、 无源汇有上下界可行流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        二、 有源汇有上下界最大流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三、 有源汇有上下界最小流
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        例题
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">上下界网络流</h1>
+<h2 id="_2">基础概念</h2>
+<p>在普通的网络流中，边的容量限制是 <span class="arithmatex">\([0, R]\)</span>。而在上下界网络流中，每条边有一个流量下界 <span class="arithmatex">\(L\)</span> 和上界 <span class="arithmatex">\(R\)</span>，即要求实际流量 <span class="arithmatex">\(f\)</span> 满足 <span class="arithmatex">\(L \le f \le R\)</span>。</p>
+<p><strong>核心思想：分离基础流与自由流</strong><br />
+强行让每条边先流满下界 <span class="arithmatex">\(L\)</span>（基础流），此时残量网络中该边的容量变为 <span class="arithmatex">\(R - L\)</span>（自由流）。但强行塞满 <span class="arithmatex">\(L\)</span> 会破坏原图中各个节点的<strong>流量守恒</strong>，因此需要引入附加源点 <span class="arithmatex">\(SS\)</span> 和附加汇点 <span class="arithmatex">\(TT\)</span> 来“多退少补”。</p>
+<p>引入一个差值数组 <code>M[i] = 节点 i 的入流下界之和 - 节点 i 的出流下界之和</code>。<br />
+* <code>M[i] &gt; 0</code>：入大于出，节点 <span class="arithmatex">\(i\)</span> 缺水，需要从附加源点 <span class="arithmatex">\(SS\)</span> 补充，连边 <span class="arithmatex">\(SS \to i\)</span>，容量为 <code>M[i]</code>。<br />
+* <code>M[i] &lt; 0</code>：出大于入，节点 <span class="arithmatex">\(i\)</span> 水漫出来了，需要向附加汇点 <span class="arithmatex">\(TT\)</span> 排出，连边 <span class="arithmatex">\(i \to TT\)</span>，容量为 <code>-M[i]</code>。</p>
+<hr />
+<h2 id="_3">核心模型</h2>
+<h3 id="_4"><strong>一、 无源汇有上下界可行流</strong></h3>
+<p><a href="https://www.luogu.com.cn/problem/P14578">P14578 【模板】无源汇上下界可行流</a></p>
+<p><strong>模型描述</strong>：给定一个没有源点和汇点的网络，要求每条边的流量满足 <span class="arithmatex">\([L, R]\)</span>，且每个点满足流量守恒（流入 = 流出）。求是否存在这样的流。</p>
+<p><strong>建图与求解步骤</strong>：<br />
+1. 建立附加源点 <span class="arithmatex">\(SS\)</span> 和附加汇点 <span class="arithmatex">\(TT\)</span>。<br />
+2. 对于原图中的边 <span class="arithmatex">\(u \to v\)</span>，下界 <span class="arithmatex">\(L\)</span>，上界 <span class="arithmatex">\(R\)</span>：<br />
+   * 在网络中建边 <span class="arithmatex">\(u \to v\)</span>，容量为 <span class="arithmatex">\(R - L\)</span>。<br />
+   * 累计 <code>M[v] += L</code>, <code>M[u] -= L</code>。<br />
+3. 遍历所有节点 <span class="arithmatex">\(i\)</span>：<br />
+   * 如果 <code>M[i] &gt; 0</code>，建边 <span class="arithmatex">\(SS \to i\)</span>，容量为 <code>M[i]</code>。<br />
+   * 如果 <code>M[i] &lt; 0</code>，建边 <span class="arithmatex">\(i \to TT\)</span>，容量为 <code>-M[i]</code>。<br />
+4. 从 <span class="arithmatex">\(SS\)</span> 到 <span class="arithmatex">\(TT\)</span> 跑一次标准的 Dinic 最大流。<br />
+5. <strong>判定可行性</strong>：如果 <span class="arithmatex">\(SS\)</span> 连出的所有边都<strong>满流</strong>（即最大流等于所有 <code>M[i] &gt; 0</code> 的 <code>M[i]</code> 之和），则存在可行流；否则无解。<br />
+6. <strong>边的实际流量</strong>：对应原图边在残量网络中的反向边容量（即自由流） + 下界 <span class="arithmatex">\(L\)</span>。</p>
+<p><strong>代码</strong>：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+const int N = 1005;
+const ll inf = 1e18;
+
+struct Edge {
+    int to; ll cap; int rev;
+};
+vector&lt;Edge&gt; g[N];
+int dep[N], cur[N];
+ll d[N];
+
+struct RawEdge {
+    int u, idx, low; 
+};
+vector&lt;RawEdge&gt; raw_edges;
+
+void add_edge(int u, int v, ll w) {
+    g[u].push_back({v, w, (int)g[v].size()});
+    g[v].push_back({u, 0, (int)g[u].size() - 1});
+}
+
+bool bfs(int s, int t) {
+    memset(dep, -1, sizeof(dep));
+    dep[s] = 0;
+    queue&lt;int&gt; q; q.push(s);
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (auto &amp;e : g[u]) {
+            if (e.cap &gt; 0 &amp;&amp; dep[e.to] == -1) {
+                dep[e.to] = dep[u] + 1;
+                q.push(e.to);
+            }
+        }
+    }
+    return dep[t] != -1;
+}
+
+ll dfs(int u, int t, ll lim) {
+    if (u == t || lim == 0) return lim;
+    ll flow = 0;
+    for (int &amp;i = cur[u]; i &lt; (int)g[u].size(); i++) {
+        Edge &amp;e = g[u][i];
+        if (e.cap &gt; 0 &amp;&amp; dep[e.to] == dep[u] + 1) {
+            ll f = dfs(e.to, t, min(lim, e.cap));
+            if (f &gt; 0) {
+                e.cap -= f;
+                g[e.to][e.rev].cap += f;
+                flow += f; lim -= f;
+                if (lim == 0) break;
+            }
+        }
+    }
+    if (!flow) dep[u] = -1;
+    return flow;
+}
+
+ll dinic(int s, int t) {
+    ll flow = 0;
+    while (bfs(s, t)) {
+        memset(cur, 0, sizeof(cur));
+        flow += dfs(s, t, inf);
+    }
+    return flow;
+}
+
+int main() 
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    int SS = 0, ST = n + 1;
+
+    ll sum_pos = 0;
+    for (int i = 0; i &lt; m; i++) 
+    {
+        int u, v; ll l, r;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; l &gt;&gt; r;
+        // 记录这条边在 g[u] 中的下标，方便后续取值
+        raw_edges.push_back({u, (int)g[u].size(), (int)l});
+        add_edge(u, v, r - l);
+        d[u] -= l;
+        d[v] += l;
+    }
+
+    for (int i = 1; i &lt;= n; i++)
+    {
+        if (d[i] &gt; 0) {
+            add_edge(SS, i, d[i]);
+            sum_pos += d[i];
+        } else if (d[i] &lt; 0) {
+            add_edge(i, ST, -d[i]);
+        }
+    }
+
+    if (dinic(SS, ST) == sum_pos)
+    {
+        cout &lt;&lt; &quot;Yes\n&quot;;
+        for (auto &amp;re : raw_edges) 
+        {
+            // 实际流量 = 下界 + 跑掉的自由流
+            // 自由流 = 原边初始容量 - 剩余容量 = 反向边的容量
+            int rev_idx = g[re.u][re.idx].rev;
+            int to_node = g[re.u][re.idx].to;
+            cout &lt;&lt; re.low + g[to_node][rev_idx].cap &lt;&lt; &quot;\n&quot;;
+        }
+    } 
+    else 
+        cout &lt;&lt; &quot;No\n&quot;;
+
+    return 0;
+}
+</code></pre>
+<hr />
+<h3 id="_5"><strong>二、 有源汇有上下界最大流</strong></h3>
+<p><a href="https://www.luogu.com.cn/problem/P14579">P14579 【模板】有源汇上下界最大流</a></p>
+<p><strong>模型描述</strong>：给定源点 <span class="arithmatex">\(s\)</span> 和汇点 <span class="arithmatex">\(t\)</span>，每条边流量满足 <span class="arithmatex">\([L, R]\)</span>，求在满足可行流的前提下，<span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(t\)</span> 的最大流量。</p>
+<p><strong>建图与求解步骤</strong>：<br />
+1. <strong>转化为无源汇</strong>：在原图中加入一条 <span class="arithmatex">\(t \to s\)</span> 的边，容量为 <span class="arithmatex">\(\infty\)</span>（下界 0，上界 <span class="arithmatex">\(\infty\)</span>）。这样原图的 <span class="arithmatex">\(s\)</span> 和 <span class="arithmatex">\(t\)</span> 也满足流量守恒了。<br />
+2. 按照“无源汇可行流”的方法，建立 <span class="arithmatex">\(SS\)</span> 和 <span class="arithmatex">\(TT\)</span>，计算 <span class="arithmatex">\(M\)</span> 数组并连边。<br />
+3. 从 <span class="arithmatex">\(SS\)</span> 到 <span class="arithmatex">\(TT\)</span> 跑 Dinic 最大流。<br />
+   * 如果不满流，说明连<strong>可行流都不存在</strong>，直接返回无解。<br />
+4. 如果有解，此时那条 <span class="arithmatex">\(t \to s\)</span> 的 <span class="arithmatex">\(\infty\)</span> 边上的实际流量（即其反向边的容量），就是当前网络的一个<strong>基础可行流流量</strong>。<br />
+5. <strong>删去附加边</strong>：将 <span class="arithmatex">\(t \to s\)</span> 及其反向边从图中删去（或者将其容量清零）。注意 <span class="arithmatex">\(SS\)</span> 和 <span class="arithmatex">\(TT\)</span> 相关的边不用管，因为已经流满了。<br />
+6. <strong>残量网络榨取</strong>：在当前的残量网络上，直接从原源点 <span class="arithmatex">\(s\)</span> 到原汇点 <span class="arithmatex">\(t\)</span> 再跑一次 Dinic 最大流。<br />
+7. <strong>最终结果</strong>：有源汇上下界最大流 = <strong>基础可行流流量 + 第二次 <span class="arithmatex">\(s \to t\)</span> 的最大流</strong>。</p>
+<p><strong>代码</strong>：</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+const int N = 1005;
+const ll inf = 1e18;
+
+struct Edge {
+    int to; ll cap; int rev;
+};
+vector&lt;Edge&gt; g[N];
+int dep[N], cur[N];
+ll d[N];
+
+void add_edge(int u, int v, ll w) {
+    g[u].push_back({v, w, (int)g[v].size()});
+    g[v].push_back({u, 0, (int)g[u].size() - 1});
+}
+
+bool bfs(int s, int t) {
+    memset(dep, -1, sizeof(dep));
+    dep[s] = 0;
+    queue&lt;int&gt; q;
+    q.push(s);
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (auto &amp;e : g[u]) {
+            if (e.cap &gt; 0 &amp;&amp; dep[e.to] == -1) {
+                dep[e.to] = dep[u] + 1;
+                q.push(e.to);
+            }
+        }
+    }
+    return dep[t] != -1;
+}
+
+ll dfs(int u, int t, ll lim) {
+    if (u == t || lim == 0) return lim;
+    ll flow = 0;
+    for (int &amp;i = cur[u]; i &lt; g[u].size(); i++) {
+        Edge &amp;e = g[u][i];
+        if (e.cap &gt; 0 &amp;&amp; dep[e.to] == dep[u] + 1) {
+            ll f = dfs(e.to, t, min(lim, e.cap));
+            if (f &gt; 0) { 
+                e.cap -= f;
+                g[e.to][e.rev].cap += f;
+                flow += f;
+                lim -= f;
+                if (lim == 0) break;
+            }
+        }
+    }
+    if (!flow) dep[u] = -1;
+    return flow;
+}
+
+ll dinic(int s, int t) {
+    ll flow = 0;
+    while (bfs(s, t)) {
+        memset(cur, 0, sizeof(cur));
+        flow += dfs(s, t, inf);
+    }
+    return flow;
+}
+
+int main() {
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int n, m, s, t;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;
+    int S = 0, T = n + 1; 
+
+    ll sum = 0;
+    for (int i = 0; i &lt; m; i++) {
+        int u, v; ll l, r;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; l &gt;&gt; r;
+        add_edge(u, v, r - l); 
+        d[u] -= l; 
+        d[v] += l; 
+    }
+
+    for (int i = 1; i &lt;= n; i++) {
+        if (d[i] &gt; 0) {
+            add_edge(S, i, d[i]);
+            sum += d[i];
+        } else if (d[i] &lt; 0) {
+            add_edge(i, T, -d[i]);
+        }
+    }
+
+    add_edge(t, s, inf); 
+    int ts_edge_idx = g[t].size() - 1; // t-&gt;s 的边
+    int st_edge_idx = g[s].size() - 1; // s-&gt;t 的反向边（存流量的地方）
+
+    // 第一步：跑超级源汇最大流，看是否满足下界
+    if (dinic(S, T) != sum) {
+        cout &lt;&lt; &quot;N&quot; &lt;&lt; &quot;\n&quot;; // 对应题目的无解输出
+        return 0;
+    } 
+    // 可行流的大小就是循环边 (t-&gt;s) 的反向边所携带的流量
+    ll flow1 = g[s][st_edge_idx].cap;
+
+    // 必须清零，否则退流的时候会顺着这条边流回去，导致计算错误
+    g[t][ts_edge_idx].cap = 0;
+    g[s][st_edge_idx].cap = 0;
+
+    // 这代表尝试将已经流出的流量“退回”，尽可能压减总流量
+    ll flow2 = dinic(t, s); 
+
+    // 终答案是 可行流 - 退掉的流
+    cout &lt;&lt; flow1 - flow2 &lt;&lt; &quot;\n&quot;;
+
+    return 0; 
+}
+
+/*
+启示：
+
+最小流是跑一遍可行流加退流
+
+关于清理超级源汇：在最小流中，其实不需要像你最大流代码里那样循环清理 S, T 相关的边，只要把 T-&gt;S 那条边断掉，然后直接跑 dinic(t, s) 即可。因为 S, T 到超级源汇的边在 dinic(S, T) 满流后残量已经为 0 了，不会影响结果。 
+*/
+</code></pre>
+<hr />
+<h3 id="_6"><strong>三、 有源汇有上下界最小流</strong></h3>
+<p><a href="https://www.luogu.com.cn/problem/P14580">P14580 【模板】有源汇上下界最小流</a></p>
+<p><strong>模型描述</strong>：给定源点 <span class="arithmatex">\(s\)</span> 和汇点 <span class="arithmatex">\(t\)</span>，每条边流量满足 <span class="arithmatex">\([L, R]\)</span>，求在满足可行流的前提下，<span class="arithmatex">\(s\)</span> 到 <span class="arithmatex">\(t\)</span> 的最小流量。</p>
+<p><strong>建图与求解步骤</strong>：<br />
+思路与最大流类似，但最后一步是“退流”。<br />
+1. 加入 <span class="arithmatex">\(t \to s\)</span> 容量为 <span class="arithmatex">\(\infty\)</span> 的边。<br />
+2. 建立 <span class="arithmatex">\(SS\)</span> 和 <span class="arithmatex">\(TT\)</span>，计算 <span class="arithmatex">\(M\)</span> 数组连附加边。<br />
+3. 从 <span class="arithmatex">\(SS\)</span> 到 <span class="arithmatex">\(TT\)</span> 跑 Dinic。不满流则无解。<br />
+4. 记录此时 <span class="arithmatex">\(t \to s\)</span> 边上的流量为<strong>基础可行流流量</strong>。<br />
+5. 将 <span class="arithmatex">\(t \to s\)</span> 及其反向边拆除（容量清零）。<br />
+6. <strong>残量网络退流</strong>：为了让流量最小，我们需要把不需要的流量沿着原路“退”回去。直接从原汇点 <span class="arithmatex">\(t\)</span> 到原源点 <span class="arithmatex">\(s\)</span> 跑一次 Dinic 最大流。<br />
+7. <strong>最终结果</strong>：有源汇上下界最小流 = <strong>基础可行流流量 - 跑出的 <span class="arithmatex">\(t \to s\)</span> 最大流</strong>。</p>
+<p><strong>代码</strong>：</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+const int N=1005;
+const ll inf=1e18;
+
+struct Edge 
+{
+    int to;ll cap;int rev;
+};
+vector&lt;Edge&gt; g[N]; // 全局图 g
+int dep[N];        // 全局层次数组 dep
+int cur[N];        // 全局当前弧优化 cur
+ll d[N];           // 全局流量平衡数组
+
+void add_edge(int u, int v, ll w) 
+{
+    g[u].push_back({v, w, (int)g[v].size()});
+    g[v].push_back({u, 0, (int)g[u].size() - 1});
+}
+bool bfs(int s,int t)
+{
+    memset(dep,-1,sizeof(dep));
+    dep[s]=0;
+    queue&lt;int&gt;q;
+    q.push(s);
+
+    while(!q.empty())
+    {
+        int u=q.front();
+        q.pop();
+        for(auto &amp; e:g[u])
+        {
+            if(e.cap&gt;0 and dep[e.to]==-1)
+            {
+                dep[e.to]=dep[u]+1;
+                q.push(e.to);
+            }
+        }
+    }
+    return dep[t]!=-1;
+}
+
+ll dfs(int u,int t,ll lim)
+{
+    if(u==t or lim==0)return lim;
+    ll flow=0;
+    for(int &amp;i=cur[u];i&lt;g[u].size();i++)
+    {
+        Edge &amp;e=g[u][i];
+        if(e.cap&gt;0 and dep[e.to]==dep[u]+1)
+        {
+            ll f=dfs(e.to,t,min(lim,e.cap));
+            if(d&gt;0)
+            {
+                e.cap-=f;
+                g[e.to][e.rev].cap+=f;
+                flow+=f;
+                lim-=f;
+                if(lim==0)break;
+            }
+        }
+    }
+    if(!flow)dep[u]=-1;
+    return flow;
+}
+ll dinic(int s,int t)
+{
+    ll flow=0;
+    while(bfs(s,t))
+    {
+        memset(cur,0,sizeof(cur));
+        flow+=dfs(s,t,inf);
+    }return flow;
+}
+int main()
+{
+    cin.tie(0)-&gt;sync_with_stdio(0);
+    int  n,m,s,t;
+    cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;
+    int S=0,T=n+1;
+
+    ll sum=0;
+    for(int i=0;i&lt;m;i++)
+    {
+        int u,v;ll l,r;
+        cin&gt;&gt;u&gt;&gt;v&gt;&gt;l&gt;&gt;r;
+        add_edge(u,v,r-l);
+        d[u]-=l;
+        d[v]+=l;
+    }
+
+    for(int i=1;i&lt;=n;i++)
+    {
+        if(d[i]&gt;0)
+        {
+            add_edge(S,i,d[i]);
+            sum+=d[i];
+            /*
+            d[i]&gt;0说明强制流入大于强制流出
+            那么剩下的自由流量应该流出d[i] 
+            */
+        }
+        else 
+            add_edge(i,T,-d[i]);
+    }
+    //建立回流管道
+
+    add_edge(t,s,inf);
+    int tst = g[t].size() - 1;
+    int tss = g[s].size() - 1; // 就是你代码里的 ts
+
+    if(dinic(S,T)!=sum)
+    {
+        cout&lt;&lt;&quot;N&quot;;
+        return 0;
+    } 
+    int flow1=g[s][tss].cap;//t-&gt;s的反边，相当于t-&gt;s经过了多少流，也就是可行流 
+
+    for (int i = 0; i &lt;= n + 1; i++) //清理流 
+        for (auto &amp;e : g[i]) 
+            if (i == S or i == T or e.to == S or e.to == T) e.cap = 0;
+
+    g[t][tst].cap = 0;
+    g[s][tss].cap = 0;
+
+    ll flow2=dinic(s,t);
+    cout&lt;&lt;flow1+flow2&lt;&lt;&quot;\n&quot;;
+    return 0; 
+}
+</code></pre>
+<h2 id="_7">例题</h2>
+<p><a href="https://www.luogu.com.cn/problem/P4553">P4553 80 人环游世界</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3980">P3980 [NOI2008] 志愿者招募</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P3511">P3511 [POI 2010] MOS-Bridges</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P4043">P4043 [AHOI2014/JSOI2014] 支线剧情</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.top"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
