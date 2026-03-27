@@ -28,6 +28,8 @@ plugins:
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
+  - nl2br       # 开启单回车自动换行（洛谷模式）
+  - sane_lists  # 让列表的解析更聪明一些
 
 extra_javascript:
   - javascripts/mathjax.js
