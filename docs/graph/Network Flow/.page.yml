@@ -1,0 +1,4 @@
+nav:
+  - 上下界网络流：Bounded_Network_Flow.md
+  - 最大流：Maximum_Flow.md
+  - 最小割：Minimum_Cut.md
