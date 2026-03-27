@@ -21,9 +21,6 @@ markdown_extensions:
   - pymdownx.arithmatex: # 开启 LaTeX 数学公式支持
       generic: true
 
-# Contents
-nav:
-  - 首页: index.md
-  - 基础图论:
-    - 欧拉路径: graph/eulerian_path.md
-    - 网络流: graph/network_flow.md
+plugins:
+  - search
+  - awesome-pages
